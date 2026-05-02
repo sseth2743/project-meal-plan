@@ -1,610 +1,1166 @@
-# 🚀 VEGMEAL DUBAI - COMPLETE BEGINNER GUIDE
-## Step-by-Step Instructions for Pro Beginners (Windows)
-
----
-
-## 📋 TABLE OF CONTENTS
-1. [Part 1: Download the Files](#part-1-download-the-files)
-2. [Part 2: Update Your Local App](#part-2-update-your-local-app)
-3. [Part 3: Push to GitHub](#part-3-push-to-github)
-4. [Part 4: Verify Live](#part-4-verify-live)
-5. [Troubleshooting](#troubleshooting)
-
----
-
-## PART 1: DOWNLOAD THE FILES
-
-### **Step 1.1: Open Downloads Folder**
-```
-1. Press Windows key + R (opens Run dialog)
-2. Type: explorer
-3. Press Enter
-4. You'll see your Downloads folder
-5. Look for "Project Meal Plan" folder
-   - If it exists → GO TO STEP 1.2
-   - If NOT → Create it:
-     a. Right-click in Downloads
-     b. Click "New" → "Folder"
-     c. Name it: Project Meal Plan
-```
-
-**What you should see:**
-```
-Downloads
-  ├── Project Meal Plan (folder)
-  │   └── index.html (file)
-  └── other files...
-```
-
----
-
-### **Step 1.2: Find the New App File**
-```
-1. Go to this folder location on your computer:
-   📁 Downloads > Project Meal Plan
-   
-2. You should see:
-   ├── index.html (OLD - we'll replace this)
-   ├── manifest.json
-   ├── sw.js
-   └── other files
-```
-
----
-
-## PART 2: UPDATE YOUR LOCAL APP
-
-### **Step 2.1: Open the New App Code**
-
-**On your phone/computer where you downloaded the files:**
-
-```
-1. Find and open: VegMeal_Dubai_WITH_PRICE_COMPARISON.html
-   (This is the app file we created - should be in Downloads)
-
-2. Open it with Google Chrome:
-   a. Right-click on the file
-   b. Click "Open with"
-   c. Select "Google Chrome"
-   d. App opens in browser - GOOD! ✅
-```
-
-**In the browser:**
-```
-3. You should see:
-   - Header: "🥘 VegMeal Dubai"
-   - Navigation tabs: Dashboard, Main Meals, CurryFit, etc.
-   - All features working
-```
-
-**Next, we need the CODE (not the running app):**
-```
-4. Right-click on the page
-5. Click "View page source" (or Ctrl+U)
-6. You'll see the HTML code
-7. Press Ctrl+A (Select All)
-8. Press Ctrl+C (Copy All)
-   ✅ The code is now copied to clipboard
-```
-
----
-
-### **Step 2.2: Open index.html in Notepad**
-
-**Now replace the old file:**
-
-```
-1. Go to: Downloads > Project Meal Plan
-2. Right-click on "index.html"
-3. Click "Open with" → "Notepad"
-   (If Notepad not shown, click "Choose another app" → scroll → Notepad)
-4. Notepad opens with old code inside
-```
-
-**You should see:**
-```
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    ... (lots of code)
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VegMeal Dubai — Premium Meal Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        :root {
+            --emerald: #0d4a2e;
+            --emerald-light: #1a6b42;
+            --gold: #c9a96e;
+            --gold-light: #e8d5a8;
+            --cream: #faf7f2;
+            --ivory: #f5f0e8;
+            --charcoal: #1a1a1a;
+            --slate: #6b7280;
+            --glass: rgba(255,255,255,0.72);
+            --glass-border: rgba(255,255,255,0.3);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.08);
+            --shadow-lg: 0 24px 64px rgba(0,0,0,0.12);
+            --shadow-glow: 0 0 40px rgba(201,169,110,0.15);
+            --radius: 16px;
+            --radius-lg: 24px;
+            --curryfit: #e85d26;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── HERO HEADER ── */
+        .hero {
+            position: relative;
+            background: linear-gradient(160deg, #0a3d24 0%, #0d4a2e 35%, #1a6b42 70%, #237a4f 100%);
+            padding: 3.5rem 2rem 2.5rem;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(201,169,110,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .logo-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 0.4rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: var(--gold-light);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            color: white;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero-sub {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+            margin-top: 0.8rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── NAVIGATION ── */
+        .nav-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250,247,242,0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            gap: 0;
+        }
+        .nav-tabs::-webkit-scrollbar { display: none; }
+        .nav-btn {
+            flex-shrink: 0;
+            background: transparent;
+            border: none;
+            padding: 1rem 1.1rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--slate);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2.5px;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .nav-btn:hover { color: var(--emerald); }
+        .nav-btn.active { color: var(--emerald); font-weight: 700; }
+        .nav-btn.active::after { width: 60%; }
+
+        /* ── MAIN CONTENT ── */
+        .content { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+        .section { display: none; animation: fadeUp 0.5s ease; }
+        .section.active { display: block; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 2.5rem;
+        }
+        .section-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.6rem;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            color: var(--emerald);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .section-desc {
+            color: var(--slate);
+            font-size: 0.92rem;
+            margin-top: 0.4rem;
+            font-weight: 300;
+        }
+
+        /* ── TRACKER CARDS ── */
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .tracker-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.04);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s ease;
+        }
+        .tracker-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+        .tracker-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--emerald), var(--gold));
+        }
+        .tracker-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+        }
+        .tracker-icon.protein { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
+        .tracker-icon.calories { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+        .tracker-icon.budget { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); }
+        .tracker-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--slate);
+            margin-bottom: 0.3rem;
+        }
+        .tracker-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--emerald);
+            line-height: 1.2;
+        }
+        .tracker-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .tracker-meta span {
+            font-size: 0.82rem;
+            color: var(--slate);
+        }
+        .tracker-meta strong {
+            color: var(--emerald);
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--emerald), var(--gold));
+            border-radius: 3px;
+            transition: width 0.6s ease;
+        }
+
+        /* ── CHARTS ── */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .chart-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .chart-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 1.2rem;
+        }
+        .chart-container { position: relative; height: 260px; }
+
+        /* ── RECIPE GRID ── */
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .recipe-card {
+            background: white;
+            padding: 0;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: all 0.35s ease;
+            overflow: hidden;
+        }
+        .recipe-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+        .card-accent {
+            height: 5px;
+            background: linear-gradient(90deg, var(--emerald), var(--gold));
+        }
+        .card-accent.curryfit {
+            background: linear-gradient(90deg, var(--curryfit), #f59e0b);
+        }
+        .card-body { padding: 1.8rem; }
+        .card-body h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: var(--emerald);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        .card-badges { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.35rem 0.8rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 600;
+            border-radius: 100px;
+            letter-spacing: 0.5px;
+        }
+        .badge.veg {
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        .badge.curryfit {
+            background: #fff7ed;
+            color: #9a3412;
+            border: 1px solid #fed7aa;
+        }
+        .card-stats {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+        .stat-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+        .stat-pill span { font-size: 0.85rem; }
+        .card-actions { display: flex; gap: 0.6rem; }
+        .btn-yt, .btn-order {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+        .btn-yt {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+        .btn-yt:hover { background: #fee2e2; transform: translateY(-2px); }
+        .btn-order {
+            background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
+            color: white;
+        }
+        .btn-order:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13,74,46,0.3); }
+
+        /* ── PLANNER ── */
+        .day-plan {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .day-plan h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--emerald);
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--ivory);
+        }
+        .meal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+        .meal-slot {
+            background: var(--ivory);
+            padding: 1.2rem;
+            border-radius: var(--radius);
+            border: 2px solid transparent;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .meal-slot:hover { border-color: var(--gold); background: white; }
+        .meal-slot.selected {
+            border-color: var(--emerald);
+            background: white;
+            box-shadow: var(--shadow-md);
+        }
+        .meal-slot h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 0.6rem;
+        }
+        .meal-slot p {
+            color: var(--charcoal);
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            min-height: 2.4rem;
+        }
+        .meal-info {
+            background: #ecfdf5;
+            padding: 0.4rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.68rem;
+            color: #065f46;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            font-family: 'Outfit', sans-serif;
+        }
+        .btn-select {
+            width: 100%;
+            padding: 0.6rem;
+            background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-select:hover { box-shadow: 0 4px 12px rgba(13,74,46,0.3); transform: translateY(-1px); }
+        .btn-print {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            background: white;
+            color: var(--emerald);
+            border: 2px solid var(--emerald);
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        .btn-print:hover { background: var(--emerald); color: white; }
+
+        /* ── REORDER BANNER ── */
+        .reorder-banner {
+            background: linear-gradient(160deg, #0a3d24 0%, #0d4a2e 40%, #1a6b42 100%);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .reorder-banner::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(201,169,110,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .reorder-banner h3 {
+            font-family: 'Playfair Display', serif;
+            color: white;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        .reorder-banner .sub {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.82rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            position: relative;
+        }
+        .platform-link {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: white;
+            padding: 1.2rem;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.88rem;
+            border-radius: var(--radius);
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .platform-link:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        .platform-link small {
+            display: block;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.72rem;
+            margin-top: 0.3rem;
+            font-weight: 400;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--emerald);
+            margin-bottom: 0.5rem;
+        }
+        .footer p {
+            color: var(--slate);
+            font-size: 0.8rem;
+        }
+
+        /* ── PRICE COMPARISON MODAL ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            animation: modalFade 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; }
+        @keyframes modalFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            width: 92%;
+            max-width: 520px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            animation: modalSlide 0.35s ease;
+        }
+        @keyframes modalSlide {
+            from { opacity: 0; transform: translateY(30px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-x {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ivory);
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            color: var(--slate);
+        }
+        .modal-x:hover { background: #fee2e2; color: #dc2626; }
+        .modal-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.4rem;
+        }
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--emerald);
+            margin-bottom: 0.3rem;
+        }
+        #recipeName {
+            font-size: 0.95rem;
+            color: var(--slate);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+        .price-option {
+            background: var(--ivory);
+            padding: 1.3rem 1.5rem;
+            margin-bottom: 0.8rem;
+            border-radius: var(--radius);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        .price-option.cheapest {
+            background: #ecfdf5;
+            border-color: #a7f3d0;
+        }
+        .price-platform {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--charcoal);
+        }
+        .price-delivery {
+            font-size: 0.78rem;
+            color: var(--slate);
+            font-weight: 400;
+        }
+        .price-right { text-align: right; }
+        .price-amount {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--emerald);
+        }
+        .cheapest-tag {
+            display: inline-block;
+            background: #065f46;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+        .price-btn {
+            width: 100%;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--emerald);
+            color: white;
+            margin-top: 0.4rem;
+            transition: all 0.3s;
+        }
+        .price-btn:hover { background: var(--emerald-light); transform: translateY(-1px); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .hero { padding: 2.5rem 1.5rem 2rem; }
+            .hero h1 { font-size: 2rem; }
+            .content { padding: 1.5rem 1rem; }
+            .recipe-grid { grid-template-columns: 1fr; }
+            .tracker-grid { grid-template-columns: 1fr; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .meal-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-btn { padding: 0.9rem 0.8rem; font-size: 0.75rem; }
+        }
+        @media (max-width: 480px) {
+            .meal-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    ...
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="logo-mark">🌿 Dubai · Est. 2026</div>
+            <h1>Veg<span>Meal</span></h1>
+            <p class="hero-sub">120+ curated vegetarian recipes · smart tracking · meal planning</p>
+        </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <div class="nav-wrap">
+        <nav class="nav-tabs">
+            <button class="nav-btn active" onclick="showTab('home', this)">Dashboard</button>
+            <button class="nav-btn" onclick="showTab('main', this)">Main Meals</button>
+            <button class="nav-btn" onclick="showTab('curryfit', this)">CurryFit</button>
+            <button class="nav-btn" onclick="showTab('snacks', this)">Snacks</button>
+            <button class="nav-btn" onclick="showTab('desserts', this)">Desserts</button>
+            <button class="nav-btn" onclick="showTab('salads', this)">Salads</button>
+            <button class="nav-btn" onclick="showTab('planner', this)">Planner</button>
+        </nav>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- DASHBOARD -->
+        <section id="home-tab" class="section active">
+            <div class="section-header">
+                <div class="section-label">Overview</div>
+                <div class="section-title">Daily Dashboard</div>
+                <div class="section-desc">Track your nutrition, calories, and budget in real time</div>
+            </div>
+            <div class="tracker-grid">
+                <div class="tracker-card">
+                    <div class="tracker-icon protein">💪</div>
+                    <div class="tracker-label">Protein</div>
+                    <div class="tracker-value" id="proteinTotal">0g</div>
+                    <div class="progress-bar"><div class="progress-fill" id="proteinBar" style="width:0%"></div></div>
+                    <div class="tracker-meta">
+                        <span>Target: <strong>75g</strong></span>
+                        <span id="proteinPercent">0%</span>
+                    </div>
+                </div>
+                <div class="tracker-card">
+                    <div class="tracker-icon calories">🔥</div>
+                    <div class="tracker-label">Calories</div>
+                    <div class="tracker-value" id="caloriesTotal">0 cal</div>
+                    <div class="progress-bar"><div class="progress-fill" id="caloriesBar" style="width:0%"></div></div>
+                    <div class="tracker-meta">
+                        <span>Target: <strong>2,000 cal</strong></span>
+                        <span id="caloriesPercent">0%</span>
+                    </div>
+                </div>
+                <div class="tracker-card">
+                    <div class="tracker-icon budget">💰</div>
+                    <div class="tracker-label">Monthly Budget</div>
+                    <div class="tracker-value" id="budgetTotal">0 AED</div>
+                    <div class="progress-bar"><div class="progress-fill" id="budgetBar" style="width:0%"></div></div>
+                    <div class="tracker-meta">
+                        <span>Budget: <strong>1,000 AED</strong></span>
+                        <span id="budgetRemaining">1,000 AED left</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top:1rem;">
+                <div class="section-label">Analytics</div>
+                <div class="section-title">Weekly Trends</div>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card"><h3>Protein Intake</h3><div class="chart-container"><canvas id="proteinChart"></canvas></div></div>
+                <div class="chart-card"><h3>Calorie Intake</h3><div class="chart-container"><canvas id="caloriesChart"></canvas></div></div>
+            </div>
+        </section>
+
+        <!-- MAIN MEALS -->
+        <section id="main-tab" class="section">
+            <div class="section-header">
+                <div class="section-label">Traditional</div>
+                <div class="section-title">Main Meals</div>
+                <div class="section-desc">30 classic vegetarian recipes from across the subcontinent</div>
+            </div>
+            <div class="recipe-grid" id="mainGrid"></div>
+        </section>
+
+        <!-- CURRYFIT -->
+        <section id="curryfit-tab" class="section">
+            <div class="section-header">
+                <div class="section-label">High Protein</div>
+                <div class="section-title">CurryFit Collection</div>
+                <div class="section-desc">35 fitness-focused meals · 20–30g protein per serving</div>
+            </div>
+            <div class="recipe-grid" id="curryfitGrid"></div>
+        </section>
+
+        <!-- SNACKS -->
+        <section id="snacks-tab" class="section">
+            <div class="section-header">
+                <div class="section-label">Between Meals</div>
+                <div class="section-title">Healthy Snacks</div>
+                <div class="section-desc">20 nutritious bites to keep you fueled</div>
+            </div>
+            <div class="recipe-grid" id="snacksGrid"></div>
+        </section>
+
+        <!-- DESSERTS -->
+        <section id="desserts-tab" class="section">
+            <div class="section-header">
+                <div class="section-label">Sweet Treats</div>
+                <div class="section-title">Guilt-Free Desserts</div>
+                <div class="section-desc">15 wholesome desserts with complete video guides</div>
+            </div>
+            <div class="recipe-grid" id="dessertsGrid"></div>
+        </section>
+
+        <!-- SALADS -->
+        <section id="salads-tab" class="section">
+            <div class="section-header">
+                <div class="section-label">Fresh & Light</div>
+                <div class="section-title">Signature Salads</div>
+                <div class="section-desc">20 vibrant salads from Mediterranean to Thai</div>
+            </div>
+            <div class="recipe-grid" id="saladsGrid"></div>
+        </section>
+
+        <!-- MEAL PLANNER -->
+        <section id="planner-tab" class="section">
+            <div class="section-header">
+                <div class="section-label">Planning</div>
+                <div class="section-title">Weekly Meal Planner</div>
+                <div class="section-desc">Select meals for each day · Auto-updates your dashboard trackers</div>
+            </div>
+            <button class="btn-print" onclick="window.print()">🖨️ Print Plan</button>
+            <div id="plannerContent"></div>
+        </section>
+    </div>
+
+    <!-- REORDER BANNER -->
+    <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;">
+        <div class="reorder-banner">
+            <h3>Order Ingredients Instantly</h3>
+            <p class="sub">Compare prices and get doorstep delivery across Dubai</p>
+            <div class="platform-grid">
+                <a href="https://www.noon.com/uae-en/grocery" target="_blank" class="platform-link">⚡ Noon Grocery<small>Express 10–15 min delivery</small></a>
+                <a href="https://www.carrefour.ae" target="_blank" class="platform-link">🛒 Carrefour<small>Same-day delivery</small></a>
+                <a href="https://www.careem.com/en-ae" target="_blank" class="platform-link">🚚 Careem<small>On-demand delivery</small></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-logo">Veg<span style="color:var(--gold)">Meal</span> Dubai</div>
+        <p>120+ Recipes · CurryFit · Smart Tracking · Budget Manager · Video Guides</p>
+    </footer>
+
+    <!-- PRICE COMPARISON MODAL -->
+    <div id="priceModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-x" onclick="closePriceModal()">✕</button>
+            <div class="modal-label">Price Comparison</div>
+            <div class="modal-title">Best Price Available</div>
+            <p id="recipeName"></p>
+            <div id="priceComparison"></div>
+        </div>
+    </div>
+
+    <script>
+        const platformPrices = {
+            'Noon': { markup: 1.0, deliveryTime: '10–15 min', icon: '⚡', url: 'https://www.noon.com/uae-en/grocery' },
+            'Carrefour': { markup: 1.15, deliveryTime: 'Same day', icon: '🛒', url: 'https://www.carrefour.ae' },
+            'Careem': { markup: 1.25, deliveryTime: 'Varies', icon: '🚚', url: 'https://www.careem.com/en-ae' }
+        };
+
+        const allMeals = {
+            'CurryFit Paneer Tikka Pro': { protein: 28, calories: 420, cost: 9, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=paneer+tikka+masala+high+protein', order: ['paneer', 'yogurt', 'tomato'] },
+            'CurryFit Soya Paneer': { protein: 30, calories: 410, cost: 7, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=soya+paneer+curry', order: ['soya chunks', 'paneer'] },
+            'CurryFit Chickpea Bowl': { protein: 25, calories: 380, cost: 6, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=chickpea+protein+bowl', order: ['chickpeas', 'quinoa'] },
+            'CurryFit Moong Dal': { protein: 26, calories: 390, cost: 5.5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=moong+dal+protein', order: ['moong dal', 'cottage cheese'] },
+            'CurryFit Tofu Scramble': { protein: 22, calories: 310, cost: 4.5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=tofu+scramble', order: ['tofu', 'turmeric'] },
+            'CurryFit Lentil Soup': { protein: 20, calories: 320, cost: 4, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=lentil+soup+protein', order: ['lentils', 'vegetables'] },
+            'CurryFit Paneer Fried Rice': { protein: 26, calories: 410, cost: 7, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=paneer+fried+rice', order: ['paneer', 'rice'] },
+            'CurryFit Quinoa Bowl': { protein: 21, calories: 400, cost: 8, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=quinoa+buddha+bowl', order: ['quinoa', 'vegetables'] },
+            'CurryFit Soya Manchurian': { protein: 28, calories: 400, cost: 6, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=soya+manchurian', order: ['soya chunks', 'tomato'] },
+            'CurryFit Paneer Makhani': { protein: 26, calories: 420, cost: 8, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=paneer+makhani', order: ['paneer', 'tomato sauce', 'cream'] },
+            'CurryFit Chickpea Tikka': { protein: 23, calories: 350, cost: 5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=chickpea+tikka', order: ['chickpeas', 'yogurt'] },
+            'CurryFit Tofu Tikka': { protein: 24, calories: 360, cost: 5.5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=tofu+tikka', order: ['tofu', 'yogurt'] },
+            'CurryFit Mixed Bean Chilli': { protein: 25, calories: 380, cost: 5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=bean+chilli', order: ['beans', 'tomato', 'spices'] },
+            'CurryFit Soy Protein Curry': { protein: 30, calories: 400, cost: 6.5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=soy+protein+curry', order: ['soya chunks', 'tomato'] },
+            'CurryFit Chickpea Biryani': { protein: 22, calories: 420, cost: 6, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=chickpea+biryani', order: ['chickpeas', 'rice'] },
+            'CurryFit Lentil Curry': { protein: 20, calories: 350, cost: 4.5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=lentil+curry', order: ['lentils', 'tomato'] },
+            'CurryFit Paneer Kofta': { protein: 24, calories: 380, cost: 8, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=paneer+kofta', order: ['paneer', 'vegetables'] },
+            'CurryFit Tofu Tikka Masala': { protein: 22, calories: 390, cost: 6, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=tofu+tikka+masala', order: ['tofu', 'tomato'] },
+            'CurryFit Soya Dal': { protein: 28, calories: 400, cost: 5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=soya+dal', order: ['soya chunks', 'lentils'] },
+            'CurryFit Paneer Steak': { protein: 30, calories: 420, cost: 9, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=paneer+steak', order: ['paneer', 'vegetables'] },
+            'CurryFit Tofu Curry': { protein: 24, calories: 370, cost: 5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=tofu+curry', order: ['tofu', 'coconut milk'] },
+            'CurryFit Chickpea Dal': { protein: 22, calories: 360, cost: 4.5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=chickpea+dal', order: ['chickpeas', 'dal'] },
+            'CurryFit Soya Biryani': { protein: 26, calories: 420, cost: 5.5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=soya+biryani', order: ['soya chunks', 'rice'] },
+            'CurryFit Paneer Jalfrezi': { protein: 22, calories: 380, cost: 7, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=paneer+jalfrezi', order: ['paneer', 'vegetables'] },
+            'CurryFit Tofu Stir Fry': { protein: 20, calories: 340, cost: 5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=tofu+stir+fry', order: ['tofu', 'vegetables'] },
+            'CurryFit Lentil Pulao': { protein: 18, calories: 380, cost: 4, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=lentil+pulao', order: ['lentils', 'rice'] },
+            'CurryFit Soya Korma': { protein: 26, calories: 400, cost: 6, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=soya+korma', order: ['soya chunks', 'coconut'] },
+            'CurryFit Chickpea Kofta': { protein: 20, calories: 360, cost: 5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=chickpea+kofta', order: ['chickpeas', 'flour'] },
+            'CurryFit Paneer Biryani': { protein: 24, calories: 420, cost: 7.5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=paneer+biryani', order: ['paneer', 'rice'] },
+            'CurryFit Tofu Dopiaza': { protein: 22, calories: 360, cost: 5.5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=tofu+dopiaza', order: ['tofu', 'onion'] },
+            'CurryFit Mixed Vegetable': { protein: 14, calories: 300, cost: 4.5, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=mixed+vegetable+curry', order: ['vegetables'] },
+            'CurryFit Paneer Haleem': { protein: 26, calories: 420, cost: 8, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=paneer+haleem', order: ['paneer', 'dal'] },
+            'CurryFit Soya Keema': { protein: 28, calories: 400, cost: 6, cat: 'curryfit', youtube: 'https://www.youtube.com/results?search_query=soya+keema', order: ['soya chunks', 'tomato'] },
+            'Paneer Tikka Masala': { protein: 22, calories: 380, cost: 8, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=paneer+tikka+masala', order: ['paneer', 'tomato'] },
+            'Chana Masala': { protein: 18, calories: 350, cost: 4, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=chana+masala', order: ['chickpeas', 'tomato'] },
+            'Palak Paneer': { protein: 18, calories: 320, cost: 6.5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=palak+paneer', order: ['spinach', 'paneer'] },
+            'Dal Makhani': { protein: 16, calories: 310, cost: 5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=dal+makhani', order: ['lentils', 'cream'] },
+            'Aloo Gobi': { protein: 12, calories: 280, cost: 4, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=aloo+gobi', order: ['potato', 'cauliflower'] },
+            'Vegetable Biryani': { protein: 14, calories: 380, cost: 5.5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=vegetable+biryani', order: ['rice', 'vegetables'] },
+            'Rajma Curry': { protein: 14, calories: 330, cost: 4, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=rajma+curry', order: ['beans', 'tomato'] },
+            'Mushroom Masala': { protein: 12, calories: 290, cost: 6, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=mushroom+masala', order: ['mushroom', 'cream'] },
+            'Mixed Vegetable': { protein: 10, calories: 280, cost: 4.5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=mixed+vegetable', order: ['vegetables'] },
+            'Baingan Bharta': { protein: 8, calories: 260, cost: 3.5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=baingan+bharta', order: ['eggplant', 'tomato'] },
+            'Chole Bhature': { protein: 16, calories: 380, cost: 5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=chole+bhature', order: ['chickpeas', 'flour'] },
+            'Sambar': { protein: 12, calories: 300, cost: 4, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=sambar', order: ['vegetables', 'lentils'] },
+            'Vegetable Pulao': { protein: 10, calories: 340, cost: 4.5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=vegetable+pulao', order: ['rice', 'vegetables'] },
+            'Lentil Soup': { protein: 14, calories: 310, cost: 3, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=lentil+soup', order: ['lentils', 'vegetables'] },
+            'Paneer Butter Masala': { protein: 20, calories: 400, cost: 7.5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=paneer+butter+masala', order: ['paneer', 'butter', 'tomato'] },
+            'Aloo Tikki': { protein: 8, calories: 300, cost: 3, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=aloo+tikki', order: ['potato', 'peas'] },
+            'Paneer Dosa': { protein: 14, calories: 320, cost: 5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=paneer+dosa', order: ['paneer', 'rice', 'dal'] },
+            'Masala Rice': { protein: 12, calories: 360, cost: 4, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=masala+rice', order: ['rice', 'spices'] },
+            'Vegetable Korma': { protein: 10, calories: 300, cost: 5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=vegetable+korma', order: ['vegetables', 'coconut'] },
+            'Black Eyed Peas': { protein: 14, calories: 300, cost: 3.5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=black+eyed+peas+curry', order: ['peas', 'tomato'] },
+            'Paneer Paratha': { protein: 18, calories: 350, cost: 6, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=paneer+paratha', order: ['paneer', 'flour'] },
+            'Vegetable Khichdi': { protein: 10, calories: 280, cost: 3, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=vegetable+khichdi', order: ['rice', 'dal', 'vegetables'] },
+            'Peas Paneer': { protein: 16, calories: 320, cost: 6, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=peas+paneer', order: ['peas', 'paneer'] },
+            'Tofu Scramble': { protein: 18, calories: 300, cost: 4, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=tofu+scramble', order: ['tofu', 'turmeric'] },
+            'Soya Keema': { protein: 18, calories: 340, cost: 4.5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=soya+keema', order: ['soya chunks', 'tomato'] },
+            'Spinach Rice': { protein: 10, calories: 320, cost: 4, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=spinach+rice', order: ['spinach', 'rice'] },
+            'Paneer Kathi Roll': { protein: 16, calories: 350, cost: 5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=paneer+kathi+roll', order: ['paneer', 'roti', 'vegetables'] },
+            'Bean Curry': { protein: 14, calories: 310, cost: 3.5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=bean+curry', order: ['beans', 'tomato'] },
+            'Cabbage Stir Fry': { protein: 8, calories: 200, cost: 2.5, cat: 'main', youtube: 'https://www.youtube.com/results?search_query=cabbage+stir+fry', order: ['cabbage', 'vegetables'] },
+            'Paneer Tikka Bites': { protein: 12, calories: 280, cost: 4, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=paneer+tikka+bites', order: ['paneer', 'yogurt'] },
+            'Roasted Chickpeas': { protein: 8, calories: 220, cost: 2, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=roasted+chickpeas', order: ['chickpeas'] },
+            'Vegetable Fritters': { protein: 6, calories: 240, cost: 2.5, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=vegetable+fritters', order: ['vegetables', 'flour'] },
+            'Hummus Dip': { protein: 6, calories: 180, cost: 3, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=hummus+dip', order: ['chickpeas', 'tahini'] },
+            'Mixed Nuts': { protein: 8, calories: 260, cost: 3, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=mixed+nuts', order: ['nuts'] },
+            'Spring Rolls': { protein: 8, calories: 220, cost: 3, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=vegetable+spring+rolls', order: ['vegetables', 'rice paper'] },
+            'Cottage Cheese Bowl': { protein: 14, calories: 200, cost: 3, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=cottage+cheese+bowl', order: ['cottage cheese', 'fruits'] },
+            'Energy Balls': { protein: 6, calories: 220, cost: 3, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=energy+balls+dates', order: ['dates', 'nuts'] },
+            'Paneer Tacos': { protein: 16, calories: 320, cost: 5, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=paneer+tacos', order: ['paneer', 'tortilla', 'vegetables'] },
+            'Grilled Vegetables': { protein: 5, calories: 150, cost: 2.5, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=grilled+vegetables', order: ['vegetables'] },
+            'Makhana Roast': { protein: 4, calories: 180, cost: 2.5, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=makhana+roast', order: ['makhana'] },
+            'Seed Mix': { protein: 8, calories: 240, cost: 2.5, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=seed+mix', order: ['seeds'] },
+            'Apple Peanut Butter': { protein: 7, calories: 220, cost: 2, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=apple+peanut+butter', order: ['apple', 'peanut butter'] },
+            'Spinach Rolls': { protein: 14, calories: 300, cost: 4.5, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=spinach+paneer+rolls', order: ['spinach', 'paneer'] },
+            'Yogurt Parfait': { protein: 10, calories: 240, cost: 2.5, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=yogurt+parfait', order: ['yogurt', 'granola'] },
+            'Broccoli Chips': { protein: 6, calories: 180, cost: 2, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=broccoli+chips', order: ['broccoli'] },
+            'Paneer Fingers': { protein: 14, calories: 280, cost: 4, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=paneer+fingers', order: ['paneer', 'breadcrumbs'] },
+            'Corn Chips': { protein: 4, calories: 200, cost: 2, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=corn+chips', order: ['corn'] },
+            'Tofu Bites': { protein: 12, calories: 240, cost: 3, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=tofu+bites', order: ['tofu'] },
+            'Vegetable Dip': { protein: 4, calories: 120, cost: 2, cat: 'snacks', youtube: 'https://www.youtube.com/results?search_query=vegetable+dip', order: ['vegetables', 'yogurt'] },
+            'No-Bake Cheesecake': { protein: 8, calories: 300, cost: 4, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=no+bake+cheesecake', order: ['cottage cheese', 'honey'] },
+            'Chocolate Mousse': { protein: 6, calories: 260, cost: 3, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=chocolate+mousse+healthy', order: ['avocado', 'cocoa'] },
+            'Fruit Salad': { protein: 4, calories: 200, cost: 3.5, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=fruit+salad', order: ['fruits'] },
+            'Energy Bites': { protein: 6, calories: 240, cost: 2.5, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=energy+bites', order: ['dates', 'almonds'] },
+            'Mango Yogurt': { protein: 8, calories: 220, cost: 3, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=mango+yogurt', order: ['mango', 'yogurt'] },
+            'Banana Cookies': { protein: 5, calories: 200, cost: 2, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=banana+cookies', order: ['banana', 'oats'] },
+            'Berry Bowl': { protein: 6, calories: 240, cost: 4, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=berry+smoothie+bowl', order: ['berries', 'yogurt'] },
+            'Chia Pudding': { protein: 8, calories: 260, cost: 3, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=chia+pudding', order: ['chia seeds', 'milk'] },
+            'Dates Almonds': { protein: 6, calories: 240, cost: 2, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=dates+almonds', order: ['dates', 'almonds'] },
+            'Watermelon Sorbet': { protein: 2, calories: 120, cost: 1.5, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=watermelon+sorbet', order: ['watermelon'] },
+            'Peanut Butter Cups': { protein: 8, calories: 280, cost: 2.5, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=peanut+butter+cups', order: ['peanut butter', 'chocolate'] },
+            'Carrot Cake': { protein: 6, calories: 250, cost: 3.5, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=carrot+cake+healthy', order: ['carrot', 'oats'] },
+            'Strawberry Yogurt': { protein: 9, calories: 220, cost: 3, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=strawberry+yogurt', order: ['strawberries', 'yogurt'] },
+            'Coconut Macaroons': { protein: 4, calories: 220, cost: 2, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=coconut+macaroons', order: ['coconut'] },
+            'Matcha Smoothie': { protein: 4, calories: 180, cost: 2.5, cat: 'desserts', youtube: 'https://www.youtube.com/results?search_query=matcha+smoothie', order: ['matcha', 'milk'] },
+            'Mediterranean Quinoa': { protein: 18, calories: 320, cost: 7, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=mediterranean+quinoa+salad', order: ['quinoa', 'tomato', 'feta'] },
+            'Arugula Paneer': { protein: 20, calories: 340, cost: 8, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=arugula+paneer+salad', order: ['arugula', 'paneer'] },
+            'Chickpea Buddha': { protein: 16, calories: 380, cost: 5.5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=chickpea+buddha+bowl', order: ['chickpeas', 'sweet potato'] },
+            'Halloumi Salad': { protein: 22, calories: 360, cost: 9, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=halloumi+salad', order: ['halloumi', 'greens'] },
+            'Spinach Walnut': { protein: 15, calories: 320, cost: 6.5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=spinach+walnut+salad', order: ['spinach', 'walnuts'] },
+            'Beetroot Feta': { protein: 14, calories: 300, cost: 7.5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=beetroot+feta+salad', order: ['beetroot', 'feta'] },
+            'Paneer Tikka Salad': { protein: 24, calories: 380, cost: 8, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=paneer+tikka+salad', order: ['paneer', 'greens'] },
+            'Kale Chickpea': { protein: 14, calories: 300, cost: 5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=kale+chickpea+salad', order: ['kale', 'chickpeas'] },
+            'Greek Paneer': { protein: 18, calories: 340, cost: 7, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=greek+salad+paneer', order: ['greens', 'paneer', 'olives'] },
+            'Corn Bell Pepper': { protein: 8, calories: 220, cost: 4, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=corn+bell+pepper+salad', order: ['corn', 'bell peppers'] },
+            'Beet Orange': { protein: 12, calories: 310, cost: 7, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=beet+orange+salad', order: ['beetroot', 'orange'] },
+            'Avocado Chickpea': { protein: 12, calories: 360, cost: 6.5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=avocado+chickpea+salad', order: ['avocado', 'chickpeas'] },
+            'Thai Paneer': { protein: 16, calories: 300, cost: 6.5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=thai+salad+paneer', order: ['greens', 'paneer', 'peanuts'] },
+            'Broccoli Sesame': { protein: 11, calories: 280, cost: 5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=broccoli+sesame+salad', order: ['broccoli', 'sesame'] },
+            'Caprese Paneer': { protein: 19, calories: 320, cost: 7.5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=caprese+salad+paneer', order: ['paneer', 'tomato', 'basil'] },
+            'Raw Vegetable Sprout': { protein: 10, calories: 180, cost: 3.5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=raw+vegetable+sprout+salad', order: ['sprouts', 'vegetables'] },
+            'Lentil Vegetable': { protein: 13, calories: 300, cost: 4.5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=lentil+vegetable+salad', order: ['lentils', 'vegetables'] },
+            'Moong Sprout': { protein: 14, calories: 280, cost: 4.5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=moong+sprout+salad', order: ['sprouts', 'vegetables'] },
+            'Tomato Kachumber': { protein: 6, calories: 80, cost: 2.5, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=kachumber+salad', order: ['tomato', 'cucumber'] },
+            'Mixed Greens Tofu': { protein: 17, calories: 340, cost: 6, cat: 'salads', youtube: 'https://www.youtube.com/results?search_query=tofu+tahini+salad', order: ['greens', 'tofu'] },
+        };
+
+        let trackerData = { protein: 0, calories: 0, budget: 0, proteinHistory: [0,0,0,0,0,0,0], caloriesHistory: [0,0,0,0,0,0,0] };
+        let weekPlan = {};
+        let proteinChart, caloriesChart;
+
+        function renderRecipes(category, gridId) {
+            const meals = Object.entries(allMeals).filter(([_, m]) => m.cat === category);
+            const grid = document.getElementById(gridId);
+            grid.innerHTML = meals.map(([name, meal]) => `
+                <div class="recipe-card">
+                    <div class="card-accent ${meal.cat === 'curryfit' ? 'curryfit' : ''}"></div>
+                    <div class="card-body">
+                        <h3>${name}</h3>
+                        <div class="card-badges">
+                            <span class="badge veg">🌿 Vegetarian</span>
+                            ${meal.cat === 'curryfit' ? '<span class="badge curryfit">💪 CurryFit</span>' : ''}
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-pill"><span>💪</span> ${meal.protein}g</div>
+                            <div class="stat-pill"><span>🔥</span> ${meal.calories} cal</div>
+                            <div class="stat-pill"><span>💰</span> ${meal.cost} AED</div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-yt" onclick="window.open('${meal.youtube}', '_blank')">▶ Watch</button>
+                            <button class="btn-order" onclick="showPriceComparison('${name.replace(/'/g, "\\'")}', ${meal.cost})">🛒 Order</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showPriceComparison(recipeName, baseCost) {
+            document.getElementById('recipeName').textContent = recipeName;
+            const prices = [];
+            for (const [platform, data] of Object.entries(platformPrices)) {
+                prices.push({ platform, finalPrice: (baseCost * data.markup).toFixed(2), ...data });
+            }
+            prices.sort((a, b) => parseFloat(a.finalPrice) - parseFloat(b.finalPrice));
+            document.getElementById('priceComparison').innerHTML = prices.map((p, idx) => `
+                <div class="price-option ${idx === 0 ? 'cheapest' : ''}">
+                    <div>
+                        <div class="price-platform">${p.icon} ${p.platform}</div>
+                        <div class="price-delivery">${p.deliveryTime}</div>
+                    </div>
+                    <div class="price-right">
+                        <div class="price-amount">${p.finalPrice} AED</div>
+                        ${idx === 0 ? '<div class="cheapest-tag">Best Price</div>' : ''}
+                    </div>
+                    <button class="price-btn" onclick="window.open('${p.url}', '_blank'); closePriceModal();">Order from ${p.platform}</button>
+                </div>
+            `).join('');
+            document.getElementById('priceModal').classList.add('active');
+        }
+
+        function closePriceModal() { document.getElementById('priceModal').classList.remove('active'); }
+
+        function selectMeal(day, type) {
+            const meals = Object.keys(allMeals);
+            const selected = prompt('Select ' + type + ':\n\n' + meals.join('\n'));
+            if (selected && allMeals[selected]) {
+                const meal = allMeals[selected];
+                weekPlan[day + '-' + type] = selected;
+                trackerData.protein += meal.protein;
+                trackerData.calories += meal.calories;
+                trackerData.budget += meal.cost;
+                updateTrackers();
+                renderPlanner();
+            }
+        }
+
+        function renderPlanner() {
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            const types = ['breakfast', 'lunch', 'dinner', 'snacks'];
+            let html = '';
+            days.forEach(day => {
+                html += '<div class="day-plan"><h3>' + day + '</h3><div class="meal-grid">';
+                types.forEach(type => {
+                    const key = day + '-' + type;
+                    const mealName = weekPlan[key] || 'Not selected';
+                    const info = weekPlan[key] ? allMeals[weekPlan[key]] : null;
+                    html += '<div class="meal-slot' + (info ? ' selected' : '') + '">';
+                    html += '<h4>' + type + '</h4>';
+                    html += '<p>' + mealName + '</p>';
+                    if (info) html += '<div class="meal-info">💪' + info.protein + 'g · 🔥' + info.calories + ' · 💰' + info.cost + ' AED</div>';
+                    html += '<button class="btn-select" onclick="selectMeal(\'' + day + '\', \'' + type + '\')">Select</button>';
+                    html += '</div>';
+                });
+                html += '</div></div>';
+            });
+            document.getElementById('plannerContent').innerHTML = html;
+        }
+
+        function updateTrackers() {
+            const pp = Math.min(100, Math.round(trackerData.protein / 75 * 100));
+            const cp = Math.min(100, Math.round(trackerData.calories / 2000 * 100));
+            const bp = Math.min(100, Math.round(trackerData.budget / 1000 * 100));
+            document.getElementById('proteinTotal').textContent = trackerData.protein.toFixed(1) + 'g';
+            document.getElementById('proteinPercent').textContent = pp + '%';
+            document.getElementById('proteinBar').style.width = pp + '%';
+            document.getElementById('caloriesTotal').textContent = Math.round(trackerData.calories) + ' cal';
+            document.getElementById('caloriesPercent').textContent = cp + '%';
+            document.getElementById('caloriesBar').style.width = cp + '%';
+            document.getElementById('budgetTotal').textContent = trackerData.budget.toFixed(2) + ' AED';
+            document.getElementById('budgetRemaining').textContent = (1000 - trackerData.budget).toFixed(2) + ' AED left';
+            document.getElementById('budgetBar').style.width = bp + '%';
+            if (proteinChart) { proteinChart.data.datasets[0].data = trackerData.proteinHistory; proteinChart.update(); }
+            if (caloriesChart) { caloriesChart.data.datasets[0].data = trackerData.caloriesHistory; caloriesChart.update(); }
+        }
+
+        function initCharts() {
+            const chartOpts = (max) => ({ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max, grid: { color: 'rgba(0,0,0,0.04)' } }, x: { grid: { display: false } } } });
+            proteinChart = new Chart(document.getElementById('proteinChart').getContext('2d'), {
+                type: 'line',
+                data: { labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], datasets: [{ label: 'Protein', data: trackerData.proteinHistory, borderColor: '#0d4a2e', backgroundColor: 'rgba(13,74,46,0.08)', borderWidth: 2.5, tension: 0.4, fill: true, pointBackgroundColor: '#0d4a2e', pointRadius: 4 }] },
+                options: chartOpts(200)
+            });
+            caloriesChart = new Chart(document.getElementById('caloriesChart').getContext('2d'), {
+                type: 'line',
+                data: { labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], datasets: [{ label: 'Calories', data: trackerData.caloriesHistory, borderColor: '#c9a96e', backgroundColor: 'rgba(201,169,110,0.08)', borderWidth: 2.5, tension: 0.4, fill: true, pointBackgroundColor: '#c9a96e', pointRadius: 4 }] },
+                options: chartOpts(2500)
+            });
+        }
+
+        function showTab(tab, btn) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(tab + '-tab').classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (tab === 'main') renderRecipes('main', 'mainGrid');
+            if (tab === 'curryfit') renderRecipes('curryfit', 'curryfitGrid');
+            if (tab === 'snacks') renderRecipes('snacks', 'snacksGrid');
+            if (tab === 'desserts') renderRecipes('desserts', 'dessertsGrid');
+            if (tab === 'salads') renderRecipes('salads', 'saladsGrid');
+            if (tab === 'planner') renderPlanner();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { initCharts(); renderPlanner(); });
+        document.getElementById('priceModal').addEventListener('click', function(e) { if (e.target === this) closePriceModal(); });
+    </script>
 </body>
 </html>
-```
-
----
-
-### **Step 2.3: Replace All Old Code**
-
-**Delete old code and paste new:**
-
-```
-1. In Notepad, press Ctrl+A (Select All)
-   ✅ All text is now highlighted (blue background)
-
-2. Press Delete (removes all old code)
-   ✅ Notepad is now empty
-
-3. Press Ctrl+V (Paste the new code)
-   ✅ New app code appears in Notepad
-
-4. Verify you see:
-   - "🥘 VegMeal Dubai" in the text
-   - "CurryFit" mentions
-   - "platformPrices" in the code
-   
-5. If yes → Continue
-   If no → Something went wrong, ask for help
-```
-
----
-
-### **Step 2.4: Save the File**
-
-**Save with same name (index.html):**
-
-```
-1. Press Ctrl+S (Save)
-2. Dialog appears asking where to save
-3. Make sure it shows:
-   📁 Location: Downloads\Project Meal Plan
-   📄 File name: index.html
-   📝 File type: All Files (*)
-4. Click "Save"
-   ✅ File saved!
-```
-
-**Verify save worked:**
-```
-5. Close Notepad
-6. Go to: Downloads > Project Meal Plan
-7. Right-click on index.html
-8. Click "Properties"
-9. Check "Modified" date:
-   - Should be TODAY's date and current time
-   - If OLD date → Save didn't work, try again
-```
-
----
-
-## PART 3: PUSH TO GITHUB
-
-### **Step 3.1: Open Git Bash**
-
-**Windows users:**
-
-```
-1. Press Windows key
-2. Type: Git Bash
-3. Click "Git Bash" (from Start menu)
-4. Black terminal window opens
-   ✅ You should see:
-   $ (blinking cursor)
-```
-
----
-
-### **Step 3.2: Navigate to Your Folder**
-
-**Tell Git where your app is:**
-
-```
-1. Type this EXACT command:
-   cd Downloads\Project\ Meal\ Plan
-   
-2. Press Enter
-   
-3. You should see:
-   $ cd Downloads\Project\ Meal\ Plan
-   $ (new line with cursor)
-   
-   ✅ If you see this → Good! You're in the right folder
-   ❌ If error message → Check the path is correct
-```
-
-**Verify you're in right folder:**
-```
-4. Type: ls
-5. Press Enter
-6. You should see:
-   index.html
-   manifest.json
-   sw.js
-   (and other files)
-   
-✅ If you see index.html → You're in correct folder
-```
-
----
-
-### **Step 3.3: Check Git Status**
-
-**See what's changed:**
-
-```
-1. Type: git status
-2. Press Enter
-3. You should see:
-   
-   On branch main
-   Changes not staged for commit:
-     modified:   index.html
-   
-✅ If you see "modified: index.html" → Good!
-❌ If you see nothing changed → Something's wrong
-```
-
----
-
-### **Step 3.4: Add Changes**
-
-**Prepare files to upload:**
-
-```
-1. Type: git add .
-   (note the period at the end)
-2. Press Enter
-3. No message appears (that's normal)
-4. You should see:
-   $ git add .
-   $ (new line)
-```
-
----
-
-### **Step 3.5: Commit Changes**
-
-**Write a description of what changed:**
-
-```
-1. Type this command:
-   git commit -m "Fix: Correct Carrefour and Careem links (404 errors resolved)"
-   
-2. Press Enter
-3. You should see:
-   
-   [main abc1234] Fix: Correct Carrefour and Careem links...
-    1 file changed, 500 insertions(+), 200 deletions(-)
-   
-✅ You see "1 file changed" → Good!
-```
-
----
-
-### **Step 3.6: Push to GitHub**
-
-**Upload to your GitHub account:**
-
-```
-1. Type: git push origin main
-2. Press Enter
-3. Wait... it might ask for password
-   
-If password prompt appears:
-   - Type your GitHub password (nothing appears as you type)
-   - Press Enter
-   
-You should see:
-   
-   Enumerating objects: 5, done.
-   Counting objects: 100% (5/5), done.
-   Writing objects: 100% (3/3), 2.50 KiB | 2.50 MiB/s, done.
-   Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
-   
-✅ If you see "done" → Upload successful!
-❌ If you see "error" → Check error message
-```
-
----
-
-### **Step 3.7: Verify Push Worked**
-
-```
-1. Type: git status
-2. Press Enter
-3. You should see:
-   
-   On branch main
-   nothing to commit, working tree clean
-   
-✅ This means everything is uploaded!
-```
-
----
-
-## PART 4: VERIFY LIVE
-
-### **Step 4.1: Wait for GitHub to Update**
-
-```
-⏳ IMPORTANT: Wait 2-3 minutes
-   GitHub needs time to publish your changes
-
-1. Don't do anything for 2-3 minutes
-2. GitHub rebuilds the website in background
-3. Then we verify it works
-```
-
----
-
-### **Step 4.2: Open the Live App**
-
-**Check your app on the internet:**
-
-```
-1. Open Google Chrome
-2. In address bar, type:
-   https://sseth2743.github.io/project-meal-plan
-   
-3. Press Enter
-4. Wait for page to load (might take 5-10 seconds)
-5. You should see:
-   - Header: "🥘 VegMeal Dubai"
-   - Dashboard with trackers
-   - Navigation tabs
-   
-✅ App loaded! → Continue to verify it works
-```
-
----
-
-### **Step 4.3: Test All Features**
-
-**Make sure everything works:**
-
-#### **Test 1: Dashboard**
-```
-1. Make sure you're on "🏠 Dashboard" tab
-2. You should see:
-   - 💪 Protein: 0g
-   - 🔥 Calories: 0 cal
-   - 💰 Budget: 0 AED
-   
-✅ If you see this → PASS
-```
-
-#### **Test 2: Select a Meal**
-```
-1. Click "📅 Meal Planner" tab
-2. Scroll down to "Monday"
-3. Click "Select" button under "breakfast"
-4. Type in the popup:
-   CurryFit Paneer Tikka Pro
-5. Press Enter
-6. You should see the meal appears in Monday
-7. Go back to "🏠 Dashboard"
-8. You should see:
-   - 💪 Protein: 28.0g (37%)
-   - 🔥 Calories: 420 cal (21%)
-   - 💰 Budget: 9.00 AED
-   
-✅ If trackers updated → PASS
-```
-
-#### **Test 3: Price Comparison**
-```
-1. Click "🍽️ Main Meals (30)" tab
-2. Scroll and find "Paneer Tikka Masala"
-3. Click "🛒 Order" button
-4. A popup appears with 3 options:
-   - ⚡ Noon: 8.00 AED (✨ CHEAPEST)
-   - 🛒 Carrefour: 9.20 AED
-   - 🚚 Careem: 10.00 AED
-   
-✅ If popup shows 3 prices → PASS
-```
-
-#### **Test 4: Reorder Links (No 404)**
-```
-1. Still in price comparison popup
-2. Click "Order from Noon"
-3. New tab opens with Noon website
-4. Check if page loads (no 404 error)
-5. Go back to app
-6. Click "🛒 Order" again
-7. Click "Order from Carrefour"
-8. Check if page loads (no 404 error)
-9. Go back
-10. Click "🛒 Order" again
-11. Click "Order from Careem"
-12. Check if page loads (no 404 error)
-
-✅ If all 3 opened without 404 → PASS
-```
-
-#### **Test 5: YouTube Links**
-```
-1. Go to "🍽️ Main Meals (30)" tab
-2. Find any recipe
-3. Click "📺 YouTube" button
-4. YouTube search page opens for that recipe
-
-✅ If YouTube opened → PASS
-```
-
----
-
-## 🎉 YOU'RE DONE!
-
-**If all tests PASS:**
-```
-✅ Your app is live!
-✅ All features working!
-✅ No 404 errors!
-✅ Ready to use!
-
-Visit: https://sseth2743.github.io/project-meal-plan
-```
-
----
-
-## TROUBLESHOOTING
-
-### **Problem: Git Bash says "command not found"**
-
-**Fix:**
-```
-1. Make sure you're in correct folder
-2. Type: pwd (shows current location)
-3. Type: ls (shows files)
-4. If you don't see index.html:
-   - You're in wrong folder
-   - Try: cd Downloads
-   - Then: cd Project\ Meal\ Plan
-```
-
----
-
-### **Problem: "git push" says "permission denied"**
-
-**Fix:**
-```
-1. You entered wrong GitHub password
-2. It's not the same as your computer password
-3. Go to GitHub.com
-4. Click your profile (top right)
-5. Click "Settings" → "Developer settings" → "Personal access tokens"
-6. Generate a new token
-7. Use that token as password instead
-```
-
----
-
-### **Problem: Page shows "404" when opening app link**
-
-**Fix:**
-```
-1. Wait another 2-3 minutes
-2. GitHub might still be publishing
-3. Try refreshing (Ctrl+R)
-4. Try clearing cache (Ctrl+Shift+Delete)
-5. Try different browser
-```
-
----
-
-### **Problem: Dashboard doesn't update when selecting meals**
-
-**Fix:**
-```
-1. Hard refresh: Ctrl+Shift+R (not just Ctrl+R)
-2. Clear browser cache:
-   a. Press Ctrl+Shift+Delete
-   b. Click "Clear data"
-3. Close browser completely
-4. Reopen browser
-5. Go back to app
-```
-
----
-
-### **Problem: Reorder links still show 404**
-
-**Fix:**
-```
-1. The fix we applied:
-   - Noon: https://www.noon.com/uae-en/grocery ✅
-   - Carrefour: https://www.carrefour.ae ✅
-   - Careem: https://www.careem.com/en-ae ✅
-
-2. If still 404:
-   a. Check if your internet works
-   b. Try opening links directly in browser
-   c. These sites might be down (not our issue)
-   d. Wait and try again later
-```
-
----
-
-## 💡 TIPS
-
-### **Tip 1: How to Get GitHub Password**
-```
-Don't use your computer password!
-Use a Personal Access Token:
-1. Go to github.com
-2. Login with your account
-3. Click profile (top right)
-4. Settings → Developer settings
-5. Personal access tokens
-6. "Generate new token"
-7. Copy the token
-8. Use that as password in Git
-```
-
----
-
-### **Tip 2: How to Check Your Changes**
-```
-Before pushing, always check:
-1. Open index.html in browser
-2. Test all features work
-3. Then push to GitHub
-4. This saves time if something's wrong
-```
-
----
-
-### **Tip 3: How to Keep a Backup**
-```
-Before updating:
-1. Copy index.html to Desktop
-2. Rename it: index.html.backup
-3. If something goes wrong, you have copy
-4. Can restore from backup
-```
-
----
-
-## 📞 IF STUCK
-
-### **Check These First:**
-```
-1. Git installed? Type: git --version
-2. In right folder? Type: pwd
-3. File saved? Check date in Properties
-4. Changes committed? Type: git status
-5. Changed pushed? Type: git log (see commits)
-```
-
-### **Still Stuck?**
-```
-1. Take screenshot of error
-2. Note exact error message
-3. Tell me:
-   - What you were doing
-   - What error you got
-   - What you expected to happen
-4. I can help from there
-```
-
----
-
-## 📋 FINAL CHECKLIST
-
-Before celebrating, verify:
-
-- [ ] index.html updated with new code
-- [ ] File saved in Downloads\Project Meal Plan
-- [ ] git add . completed
-- [ ] git commit ... completed
-- [ ] git push origin main completed
-- [ ] Waited 2-3 minutes
-- [ ] App loads at https://sseth2743.github.io/project-meal-plan
-- [ ] Dashboard shows 0/0/0 AED (empty state)
-- [ ] Meal planner works (updates dashboard)
-- [ ] Price comparison shows 3 options
-- [ ] Reorder links open without 404
-- [ ] YouTube links work
-
-**If all checked:** ✅ **YOU'RE DONE!**
-
----
-
-**Questions?** Go back to any section above or ask me!
-
-**Version:** Final Complete
-**Date:** 2026-05-02
-**Status:** READY FOR BEGINNERS ✅
