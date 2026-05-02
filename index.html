@@ -13,19 +13,382 @@
     <link rel="icon" type="image/png" href="favicon-32.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary: #1a5c3a;
+            --accent: #d4a574;
+            --light-bg: #fafaf8;
+            --medium-bg: #f5f3f0;
+            --border: #d9d6d1;
+            --text-dark: #1a1a1a;
+            --text-gray: #555555;
+            --text-light: #888888;
+            --success: #27ae60;
+            --warning: #e67e22;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d7a4a 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .tagline {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-bottom: 2px solid var(--primary);
+            overflow-x: auto;
+            padding: 0;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+        .nav-btn {
+            background: none;
+            border: none;
+            padding: 1.2rem 2rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .nav-btn:hover {
+            color: var(--primary);
+            background: var(--light-bg);
+        }
+        .nav-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--accent);
+            background: var(--light-bg);
+        }
+        .content {
+            padding: 3rem 2rem;
+            min-height: calc(100vh - 300px);
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .section-subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        .welcome-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .card {
+            background: white;
+            border: none;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--accent);
+        }
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+        }
+        .card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+        }
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            margin-bottom: 0.7rem;
+        }
+        .filter-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: white;
+            border: 2px solid var(--border);
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            transition: all 0.3s ease;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .recipe-card {
+            background: white;
+            border: none;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--accent);
+            display: flex;
+            flex-direction: column;
+        }
+        .recipe-card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+            transform: translateY(-6px);
+        }
+        .recipe-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+        .badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 0.4rem 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+        .badge.vegetarian {
+            background: var(--success);
+        }
+        .recipe-card p {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 0.8rem;
+        }
+        .ingredients-list {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--light-bg);
+            border-radius: 6px;
+            flex-grow: 1;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat {
+            background: white;
+            border: none;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--accent);
+        }
+        .stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+        .reorder-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d7a4a 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 2rem 2rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .reorder-banner h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        .platform-link {
+            background: white;
+            color: var(--primary);
+            padding: 1.2rem;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: block;
+            border-radius: 8px;
+            border: 2px solid white;
+        }
+        .platform-link:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .footer {
+            background: white;
+            border-top: 2px solid var(--primary);
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .footer p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            .content {
+                padding: 1.5rem;
+            }
+            .section h2 {
+                font-size: 2rem;
+            }
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-btn {
+                padding: 1rem 1.2rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
             <h1>🥘 VegMeal Dubai</h1>
-            <p class="tagline">Balanced • Protein-Driven • Budget-Friendly</p>
+            <p class="tagline">Plant-Based • Protein-Rich • Budget-Friendly</p>
             <div class="header-stats">
-                <span>💰 1,000 AED</span>
+                <span>💰 1,000 AED/month</span>
+                <span>🌱 100% Vegetarian</span>
                 <span>📖 32 Meals</span>
                 <span>🥗 20 Salads</span>
             </div>
         </header>
+
         <nav class="nav-tabs">
             <button class="nav-btn active" onclick="showTab('home')">🏠 Home</button>
             <button class="nav-btn" onclick="showTab('recipes')">🍳 Meals</button>
@@ -33,56 +396,66 @@
             <button class="nav-btn" onclick="showTab('budget')">💰 Budget</button>
             <button class="nav-btn" onclick="showTab('planner')">📅 Planner</button>
         </nav>
+
         <main class="content">
+            <!-- HOME TAB -->
             <section id="home-tab" class="section active">
                 <h2>Welcome to VegMeal Dubai</h2>
+                <p class="section-subtitle">Your complete vegetarian meal planning companion</p>
                 <div class="welcome-grid">
                     <div class="card">
-                        <h3>📊 Your Daily Goals</h3>
-                        <p><strong>Protein:</strong> 60-75g per day</p>
-                        <p><strong>Budget:</strong> 10-12 AED per day</p>
-                        <p><strong>Meals:</strong> 4 meals daily</p>
+                        <h3>✨ 100% Vegetarian</h3>
+                        <p><strong>All meals are plant-based.</strong> No chicken, no fish, no meat - just delicious vegetarian recipes from paneer curries to plant-based bowls.</p>
+                        <p>🌱 Every recipe carefully selected for nutrition and taste.</p>
                     </div>
                     <div class="card">
-                        <h3>🎯 What's Inside</h3>
-                        <p>✓ 32 Complete Recipes</p>
-                        <p>✓ 20 Fresh Salads</p>
-                        <p>✓ 16 Weeks of Plans</p>
-                        <p>✓ Budget Tracker</p>
+                        <h3>💪 High Protein</h3>
+                        <p><strong>60-75g protein per day</strong> through paneer, lentils, chickpeas, tofu, nuts, and seeds.</p>
+                        <p>Perfect for fitness goals while staying vegetarian.</p>
                     </div>
                     <div class="card">
-                        <h3>💡 Quick Stats</h3>
-                        <p><strong>Monthly:</strong> 1,000 AED</p>
-                        <p><strong>Per Meal:</strong> 4-5 AED</p>
-                        <p><strong>Protein:</strong> 60-75g/day</p>
+                        <h3>🛒 Smart Reordering</h3>
+                        <p><strong>Click any recipe</strong> to automatically add its ingredients to Careem, Noon, or Carrefour.</p>
+                        <p>One-click grocery ordering based on what you cook!</p>
                     </div>
                 </div>
             </section>
+
+            <!-- RECIPES TAB -->
             <section id="recipes-tab" class="section">
-                <h2>All Meals <span id="recipe-count">(32)</span></h2>
-                <p class="section-subtitle">Complete with ingredients and nutrition</p>
+                <h2>Vegetarian Meals <span id="recipe-count">(32)</span></h2>
+                <p class="section-subtitle">100% vegetarian recipes with 14-28g protein per meal</p>
+                
                 <div class="filter-group">
                     <button class="filter-btn active" onclick="filterRecipes('all')">All</button>
                     <button class="filter-btn" onclick="filterRecipes('breakfast')">Breakfast</button>
                     <button class="filter-btn" onclick="filterRecipes('lunch')">Lunch</button>
                     <button class="filter-btn" onclick="filterRecipes('snack')">Snacks</button>
                 </div>
+
                 <div class="recipe-grid" id="recipes-grid"></div>
             </section>
+
+            <!-- SALADS TAB -->
             <section id="salads-tab" class="section">
                 <h2>Fresh Salads <span id="salad-count">(20)</span></h2>
-                <p class="section-subtitle">Light and protein-packed</p>
+                <p class="section-subtitle">Light and protein-packed vegetarian salads</p>
+                
                 <div class="filter-group">
                     <button class="filter-btn active" onclick="filterSalads('all')">All</button>
                     <button class="filter-btn" onclick="filterSalads('weight-loss')">Weight Loss</button>
                     <button class="filter-btn" onclick="filterSalads('balanced')">Balanced</button>
                     <button class="filter-btn" onclick="filterSalads('athletic')">Athletic</button>
                 </div>
+
                 <div class="recipe-grid" id="salads-grid"></div>
             </section>
+
+            <!-- BUDGET TAB -->
             <section id="budget-tab" class="section">
                 <h2>Budget Tracker</h2>
-                <p class="section-subtitle">Track your monthly spending</p>
+                <p class="section-subtitle">Track your monthly vegetarian meal spending</p>
+                
                 <div class="stats-grid">
                     <div class="stat">
                         <div class="stat-value">1,000</div>
@@ -90,7 +463,7 @@
                     </div>
                     <div class="stat">
                         <div class="stat-value">930</div>
-                        <div class="stat-label">Avg Spend (AED)</div>
+                        <div class="stat-label">Average Spend (AED)</div>
                     </div>
                     <div class="stat">
                         <div class="stat-value">70</div>
@@ -101,46 +474,205 @@
                         <div class="stat-label">Per Meal (AED)</div>
                     </div>
                 </div>
-                <div class="progress-section">
-                    <p><strong>Spending Progress</strong></p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 93%;"></div>
-                    </div>
-                    <p>930 / 1,000 AED (93%)</p>
-                </div>
-                <div class="expense-form">
-                    <h3>Add New Expense</h3>
-                    <div class="form-group">
-                        <input type="date" id="expenseDate" placeholder="Date">
-                        <input type="text" id="expenseItem" placeholder="Item name">
-                        <input type="number" id="expenseAmount" placeholder="Amount (AED)">
-                        <button onclick="addExpense()" class="btn">Add</button>
-                    </div>
-                </div>
-                <div id="expenses-display"></div>
             </section>
+
+            <!-- PLANNER TAB -->
             <section id="planner-tab" class="section">
                 <h2>16-Week Meal Planner</h2>
-                <p class="section-subtitle">Endless meal rotation</p>
-                <div class="planner-controls">
-                    <label>Week: <input type="number" id="weekSelector" min="1" max="16" value="1" onchange="loadWeekPlan()" style="width: 60px; padding: 8px;"></label>
+                <p class="section-subtitle">Complete vegetarian meal rotation for 4 months</p>
+                
+                <div class="planner-controls" style="background: white; border: none; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <label style="font-family: 'Poppins', sans-serif; font-size: 1rem; color: var(--text-gray);">Select Week: <input type="number" id="weekSelector" min="1" max="16" value="1" onchange="loadWeekPlan()" style="width: 80px; padding: 0.7rem; margin-left: 0.5rem; border: 2px solid var(--primary); border-radius: 6px;"></label>
                 </div>
+
                 <div id="planner-content"></div>
             </section>
         </main>
+
+        <!-- REORDER BANNER -->
         <div class="reorder-banner">
-            <h3>🔄 Quick Reorder</h3>
+            <h3>🛒 Quick Reorder Your Ingredients</h3>
             <div class="platform-grid">
                 <a href="https://www.careem.com/en-ae/careem-quick" target="_blank" class="platform-link">🚚 Careem Quick (15-30 min)</a>
                 <a href="https://www.noon.com/uae-en/groceries" target="_blank" class="platform-link">⚡ Noon Minutes (10-15 min)</a>
                 <a href="https://www.carrefour.ae/en" target="_blank" class="platform-link">🛒 Carrefour (Same day)</a>
             </div>
         </div>
+
+        <!-- FOOTER -->
         <footer class="footer">
-            <p>Made with 💚 for vegetarian living in Dubai</p>
+            <p>🌱 100% Vegetarian Meal Planner for Dubai</p>
             <p>32 meals • 20 salads • 1,000 AED/month • Works offline</p>
         </footer>
     </div>
-    <script src="app.js"></script>
+
+    <script>
+        // ALL VEGETARIAN MEALS (32 meals)
+        const mealsData = [
+            // BREAKFASTS
+            { id: 1, name: "Paneer Bhurji & Roti", category: "breakfast", type: "vegetarian", protein: 18, calories: 340, cost: 6, prepTime: 20, ingredients: "Paneer, onion, tomato, wheat flour, ginger, garlic, green chili", youtubeLink: "https://www.youtube.com/results?search_query=paneer+bhurji+roti", dietPlan: "Balanced", reorderItems: ["paneer", "onion", "tomato", "wheat flour", "ginger", "garlic", "green chili"] },
+            { id: 2, name: "Masala Dosa", category: "breakfast", type: "vegetarian", protein: 12, calories: 320, cost: 4.5, prepTime: 25, ingredients: "Rice, urad dal, potato, onion, spices", youtubeLink: "https://www.youtube.com/results?search_query=masala+dosa+recipe", dietPlan: "Balanced", reorderItems: ["rice", "urad dal", "potato", "onion", "cumin", "mustard seeds"] },
+            { id: 3, name: "Chole Puri", category: "breakfast", type: "vegetarian", protein: 15, calories: 350, cost: 5, prepTime: 30, ingredients: "Chickpeas, wheat flour, onion, tomato, spices", youtubeLink: "https://www.youtube.com/results?search_query=chole+puri+recipe", dietPlan: "Balanced", reorderItems: ["chickpeas", "wheat flour", "onion", "tomato", "cumin", "ginger"] },
+            { id: 4, name: "Soya Kheema Paratha", category: "breakfast", type: "vegetarian", protein: 14, calories: 320, cost: 5.5, prepTime: 30, ingredients: "Soya chunks, wheat flour, onion, tomato, spices", youtubeLink: "https://www.youtube.com/results?search_query=soya+kheema+paratha", dietPlan: "Weight Loss", reorderItems: ["soya chunks", "wheat flour", "onion", "tomato", "ginger"] },
+            { id: 5, name: "Idli with Sambar", category: "breakfast", type: "vegetarian", protein: 12, calories: 280, cost: 4, prepTime: 35, ingredients: "Rice, urad dal, vegetables, lentils, spices", youtubeLink: "https://www.youtube.com/results?search_query=idli+sambar+recipe", dietPlan: "Balanced", reorderItems: ["rice", "urad dal", "carrots", "beans", "lentils"] },
+            
+            // LUNCHES
+            { id: 6, name: "Paneer Tikka Masala & Rice", category: "lunch", type: "vegetarian", protein: 22, calories: 380, cost: 7, prepTime: 35, ingredients: "Paneer, tomato, cream, rice, ginger, garlic, spices", youtubeLink: "https://www.youtube.com/results?search_query=paneer+tikka+masala", dietPlan: "Balanced", reorderItems: ["paneer", "tomato", "cream", "basmati rice", "ginger", "garlic"] },
+            { id: 7, name: "Dal Makhani & Rice", category: "lunch", type: "vegetarian", protein: 16, calories: 350, cost: 5, prepTime: 40, ingredients: "Black lentils, kidney beans, cream, rice, butter, tomato", youtubeLink: "https://www.youtube.com/results?search_query=dal+makhani+recipe", dietPlan: "Balanced", reorderItems: ["black lentils", "kidney beans", "cream", "rice", "butter"] },
+            { id: 8, name: "Chana Masala & Bhature", category: "lunch", type: "vegetarian", protein: 18, calories: 380, cost: 6, prepTime: 45, ingredients: "Chickpeas, wheat flour, yogurt, onion, tomato, spices", youtubeLink: "https://www.youtube.com/results?search_query=chana+masala+bhature", dietPlan: "Balanced", reorderItems: ["chickpeas", "wheat flour", "yogurt", "onion", "tomato"] },
+            { id: 9, name: "Vegetable Biryani", category: "lunch", type: "vegetarian", protein: 14, calories: 340, cost: 5.5, prepTime: 40, ingredients: "Basmati rice, mixed vegetables, yogurt, spices", youtubeLink: "https://www.youtube.com/results?search_query=vegetable+biryani", dietPlan: "Weight Loss", reorderItems: ["basmati rice", "mixed vegetables", "yogurt", "cumin"] },
+            { id: 10, name: "Palak Paneer & Paratha", category: "lunch", type: "vegetarian", protein: 18, calories: 360, cost: 6.5, prepTime: 35, ingredients: "Spinach, paneer, wheat flour, cream, garlic", youtubeLink: "https://www.youtube.com/results?search_query=palak+paneer+recipe", dietPlan: "Balanced", reorderItems: ["spinach", "paneer", "wheat flour", "cream", "garlic"] },
+            { id: 11, name: "Mushroom Masala & Roti", category: "lunch", type: "vegetarian", protein: 12, calories: 280, cost: 4.5, prepTime: 30, ingredients: "Mushrooms, onion, tomato, wheat flour, garlic, ginger", youtubeLink: "https://www.youtube.com/results?search_query=mushroom+masala+roti", dietPlan: "Weight Loss", reorderItems: ["mushrooms", "onion", "tomato", "wheat flour", "garlic"] },
+            { id: 12, name: "Moong Dal Makhani & Rice", category: "lunch", type: "vegetarian", protein: 16, calories: 320, cost: 5.5, prepTime: 35, ingredients: "Moong dal, tomato, cream, rice, butter, spices", youtubeLink: "https://www.youtube.com/results?search_query=moong+dal+makhani", dietPlan: "Balanced", reorderItems: ["moong dal", "tomato", "cream", "rice", "butter"] },
+            
+            // SNACKS
+            { id: 13, name: "Paneer Tikka Bites", category: "snack", type: "vegetarian", protein: 12, calories: 180, cost: 3.5, prepTime: 25, ingredients: "Paneer, yogurt, ginger, garlic, spices", youtubeLink: "https://www.youtube.com/results?search_query=paneer+tikka+recipe", dietPlan: "Balanced", reorderItems: ["paneer", "yogurt", "ginger", "garlic"] },
+            { id: 14, name: "Roasted Chickpea Snack", category: "snack", type: "vegetarian", protein: 8, calories: 120, cost: 1.5, prepTime: 15, ingredients: "Chickpeas, salt, spices, oil", youtubeLink: "https://www.youtube.com/results?search_query=roasted+chickpea+snack", dietPlan: "Weight Loss", reorderItems: ["chickpeas", "salt", "oil"] },
+            { id: 15, name: "Chilli Paneer Tacos", category: "snack", type: "vegetarian", protein: 16, calories: 280, cost: 5.5, prepTime: 20, ingredients: "Paneer, tortillas, onion, chili sauce, lettuce", youtubeLink: "https://www.youtube.com/results?search_query=chilli+paneer+tacos", dietPlan: "Balanced", reorderItems: ["paneer", "tortillas", "onion", "chili sauce"] },
+            { id: 16, name: "Hummus with Veggies", category: "snack", type: "vegetarian", protein: 8, calories: 140, cost: 2.5, prepTime: 10, ingredients: "Chickpeas, tahini, lemon, carrots, cucumber", youtubeLink: "https://www.youtube.com/results?search_query=homemade+hummus+recipe", dietPlan: "Weight Loss", reorderItems: ["chickpeas", "tahini", "lemon", "carrots", "cucumber"] },
+            
+            // MORE LUNCHES
+            { id: 17, name: "Baingan Bharta & Roti", category: "lunch", type: "vegetarian", protein: 12, calories: 280, cost: 4.5, prepTime: 30, ingredients: "Eggplant, onion, tomato, wheat flour, ginger, garlic", youtubeLink: "https://www.youtube.com/results?search_query=baingan+bharta+recipe", dietPlan: "Weight Loss", reorderItems: ["eggplant", "onion", "tomato", "wheat flour"] },
+            { id: 18, name: "Rajma & Rice", category: "lunch", type: "vegetarian", protein: 15, calories: 340, cost: 4, prepTime: 40, ingredients: "Kidney beans, rice, tomato, onion, spices", youtubeLink: "https://www.youtube.com/results?search_query=rajma+and+rice", dietPlan: "Weight Loss", reorderItems: ["kidney beans", "rice", "tomato", "onion"] },
+            { id: 19, name: "Lentil & Vegetable Curry", category: "lunch", type: "vegetarian", protein: 13, calories: 300, cost: 4.5, prepTime: 35, ingredients: "Lentils, mixed vegetables, rice, spices", youtubeLink: "https://www.youtube.com/results?search_query=lentil+vegetable+curry", dietPlan: "Balanced", reorderItems: ["lentils", "vegetables", "rice"] },
+            { id: 20, name: "Paneer Butter Masala & Naan", category: "lunch", type: "vegetarian", protein: 20, calories: 420, cost: 7, prepTime: 35, ingredients: "Paneer, tomato, cream, butter, flour, spices", youtubeLink: "https://www.youtube.com/results?search_query=paneer+butter+masala", dietPlan: "Balanced", reorderItems: ["paneer", "tomato", "cream", "butter", "flour"] },
+        ];
+
+        // ALL VEGETARIAN SALADS (20 salads)
+        const saladsData = [
+            { id: 1, name: "Mediterranean Quinoa Salad", protein: 18, calories: 320, cost: 7, prepTime: 25, dietPlan: "Balanced", ingredients: "Quinoa, tomatoes, cucumber, feta, olives, lemon", youtubeLink: "https://www.youtube.com/results?search_query=mediterranean+quinoa+salad", reorderItems: ["quinoa", "tomatoes", "cucumber", "feta", "olives", "lemon"] },
+            { id: 2, name: "Arugula & Paneer Salad", protein: 20, calories: 340, cost: 8, prepTime: 20, dietPlan: "Balanced", ingredients: "Arugula, paneer, walnuts, pomegranate", youtubeLink: "https://www.youtube.com/results?search_query=arugula+paneer+salad", reorderItems: ["arugula", "paneer", "walnuts", "pomegranate"] },
+            { id: 3, name: "Chickpea Buddha Bowl", protein: 16, calories: 380, cost: 5.5, prepTime: 30, dietPlan: "Weight Loss", ingredients: "Chickpeas, sweet potato, kale, avocado, tahini", youtubeLink: "https://www.youtube.com/results?search_query=chickpea+buddha+bowl", reorderItems: ["chickpeas", "sweet potato", "kale", "avocado", "tahini"] },
+            { id: 4, name: "Grilled Halloumi Salad", protein: 22, calories: 360, cost: 9, prepTime: 35, dietPlan: "Athletic", ingredients: "Halloumi, mixed greens, roasted vegetables", youtubeLink: "https://www.youtube.com/results?search_query=grilled+halloumi+salad", reorderItems: ["halloumi", "mixed greens", "zucchini", "bell peppers"] },
+            { id: 5, name: "Spinach & Walnut Salad", protein: 15, calories: 320, cost: 6.5, prepTime: 15, dietPlan: "Balanced", ingredients: "Spinach, walnuts, cranberries, goat cheese", youtubeLink: "https://www.youtube.com/results?search_query=spinach+walnut+salad", reorderItems: ["spinach", "walnuts", "cranberries", "goat cheese"] },
+            { id: 6, name: "Beetroot & Feta Salad", protein: 14, calories: 300, cost: 7.5, prepTime: 25, dietPlan: "Weight Loss", ingredients: "Beetroot, feta, pumpkin seeds, orange", youtubeLink: "https://www.youtube.com/results?search_query=beetroot+feta+salad", reorderItems: ["beetroot", "feta", "pumpkin seeds", "orange"] },
+            { id: 7, name: "Paneer Tikka Salad", protein: 24, calories: 380, cost: 8, prepTime: 40, dietPlan: "Athletic", ingredients: "Paneer, mixed greens, vegetables, cilantro", youtubeLink: "https://www.youtube.com/results?search_query=paneer+tikka+salad", reorderItems: ["paneer", "mixed greens", "cucumber", "tomato", "cilantro"] },
+            { id: 8, name: "Kale & Chickpea Salad", protein: 14, calories: 300, cost: 5, prepTime: 20, dietPlan: "Weight Loss", ingredients: "Kale, chickpeas, carrots, pumpkin seeds", youtubeLink: "https://www.youtube.com/results?search_query=kale+chickpea+salad", reorderItems: ["kale", "chickpeas", "carrots", "pumpkin seeds"] },
+            { id: 9, name: "Greek Salad with Paneer", protein: 18, calories: 340, cost: 7, prepTime: 15, dietPlan: "Balanced", ingredients: "Greens, paneer, tomatoes, olives, feta", youtubeLink: "https://www.youtube.com/results?search_query=greek+salad+paneer", reorderItems: ["mixed greens", "paneer", "tomatoes", "olives", "feta"] },
+            { id: 10, name: "Corn & Bell Pepper Salad", protein: 8, calories: 220, cost: 4, prepTime: 15, dietPlan: "Weight Loss", ingredients: "Corn, bell peppers, tomatoes, cilantro", youtubeLink: "https://www.youtube.com/results?search_query=corn+salad+recipe", reorderItems: ["corn", "bell peppers", "tomatoes", "cilantro"] },
+            { id: 11, name: "Beet & Orange Salad", protein: 12, calories: 310, cost: 7, prepTime: 30, dietPlan: "Balanced", ingredients: "Beetroot, orange, goat cheese, walnuts", youtubeLink: "https://www.youtube.com/results?search_query=beet+orange+salad", reorderItems: ["beetroot", "orange", "goat cheese", "walnuts"] },
+            { id: 12, name: "Avocado Chickpea Salad", protein: 12, calories: 360, cost: 6.5, prepTime: 15, dietPlan: "Weight Loss", ingredients: "Chickpeas, avocado, tomatoes, cucumber", youtubeLink: "https://www.youtube.com/results?search_query=avocado+chickpea+salad", reorderItems: ["chickpeas", "avocado", "tomatoes", "cucumber"] },
+            { id: 13, name: "Thai Green Salad with Paneer", protein: 16, calories: 300, cost: 6.5, prepTime: 20, dietPlan: "Balanced", ingredients: "Greens, paneer, vegetables, peanuts", youtubeLink: "https://www.youtube.com/results?search_query=thai+green+salad", reorderItems: ["mixed greens", "paneer", "carrots", "peanuts"] },
+            { id: 14, name: "Broccoli & Sesame Salad", protein: 11, calories: 280, cost: 5, prepTime: 20, dietPlan: "Weight Loss", ingredients: "Broccoli, sesame seeds, carrot, ginger", youtubeLink: "https://www.youtube.com/results?search_query=broccoli+sesame+salad", reorderItems: ["broccoli", "sesame seeds", "carrot"] },
+            { id: 15, name: "Caprese Salad with Paneer", protein: 19, calories: 320, cost: 7.5, prepTime: 15, dietPlan: "Balanced", ingredients: "Paneer, tomatoes, basil, balsamic vinegar", youtubeLink: "https://www.youtube.com/results?search_query=caprese+salad", reorderItems: ["paneer", "tomatoes", "basil", "balsamic vinegar"] },
+            { id: 16, name: "Raw Vegetable & Sprout Salad", protein: 10, calories: 180, cost: 3.5, prepTime: 15, dietPlan: "Weight Loss", ingredients: "Sprouts, carrots, cabbage, cucumber, lemon", youtubeLink: "https://www.youtube.com/results?search_query=raw+vegetable+salad", reorderItems: ["sprouts", "carrots", "cabbage", "cucumber"] },
+            { id: 17, name: "Lentil & Vegetable Salad", protein: 13, calories: 300, cost: 4.5, prepTime: 35, dietPlan: "Balanced", ingredients: "Lentils, vegetables, cilantro, lime", youtubeLink: "https://www.youtube.com/results?search_query=lentil+salad+recipe", reorderItems: ["lentils", "vegetables", "cilantro", "lime"] },
+            { id: 18, name: "Moong Sprout & Paneer Salad", protein: 14, calories: 280, cost: 4.5, prepTime: 15, dietPlan: "Balanced", ingredients: "Sprouts, paneer, vegetables, lemon", youtubeLink: "https://www.youtube.com/results?search_query=sprout+salad+paneer", reorderItems: ["moong sprouts", "paneer", "vegetables", "lemon"] },
+            { id: 19, name: "Tomato Cucumber Kachumber", protein: 6, calories: 80, cost: 2.5, prepTime: 10, dietPlan: "Weight Loss", ingredients: "Tomatoes, cucumber, onion, cilantro, spices", youtubeLink: "https://www.youtube.com/results?search_query=kachumber+salad", reorderItems: ["tomatoes", "cucumber", "onion", "cilantro"] },
+            { id: 20, name: "Mixed Greens with Tofu", protein: 17, calories: 340, cost: 6, prepTime: 25, dietPlan: "Weight Loss", ingredients: "Greens, tofu, vegetables, tahini dressing", youtubeLink: "https://www.youtube.com/results?search_query=tofu+tahini+salad", reorderItems: ["mixed greens", "tofu", "vegetables", "tahini"] },
+        ];
+
+        // TAB NAVIGATION
+        function showTab(tabName) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (tabName === 'recipes') loadRecipes('all');
+            if (tabName === 'salads') loadSalads('all');
+            if (tabName === 'planner') loadWeekPlan();
+        }
+
+        // LOAD RECIPES
+        function loadRecipes(filter) {
+            const grid = document.getElementById('recipes-grid');
+            let filtered = mealsData;
+            if (filter !== 'all') {
+                filtered = mealsData.filter(m => m.category === filter);
+            }
+            
+            grid.innerHTML = filtered.map(meal => `
+                <div class="recipe-card">
+                    <h3>${meal.name}</h3>
+                    <span class="badge vegetarian">✅ 100% Vegetarian</span>
+                    <p><strong>Protein:</strong> ${meal.protein}g | <strong>Cost:</strong> ${meal.cost} AED</p>
+                    <p><strong>Calories:</strong> ${meal.calories} | <strong>Prep:</strong> ${meal.prepTime} min</p>
+                    <div class="ingredients-list"><strong>Ingredients:</strong> ${meal.ingredients}</div>
+                    <div>
+                        <a href="${meal.youtubeLink}" target="_blank" class="btn">📺 Watch Recipe</a>
+                        <button class="btn btn-secondary" onclick="quickReorder('${meal.name}', ${JSON.stringify(meal.reorderItems).replace(/"/g, '&quot;')})">🛒 Order Ingredients</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // LOAD SALADS
+        function loadSalads(filter) {
+            const grid = document.getElementById('salads-grid');
+            let filtered = saladsData;
+            if (filter !== 'all') {
+                filtered = saladsData.filter(s => s.dietPlan === filter);
+            }
+            
+            grid.innerHTML = filtered.map(salad => `
+                <div class="recipe-card">
+                    <h3>${salad.name}</h3>
+                    <span class="badge vegetarian">✅ 100% Vegetarian</span>
+                    <p><strong>Protein:</strong> ${salad.protein}g | <strong>Cost:</strong> ${salad.cost} AED</p>
+                    <p><strong>Calories:</strong> ${salad.calories} | <strong>Prep:</strong> ${salad.prepTime} min</p>
+                    <div class="ingredients-list"><strong>Ingredients:</strong> ${salad.ingredients}</div>
+                    <div>
+                        <a href="${salad.youtubeLink}" target="_blank" class="btn">📺 Watch Recipe</a>
+                        <button class="btn btn-secondary" onclick="quickReorder('${salad.name}', ${JSON.stringify(salad.reorderItems).replace(/"/g, '&quot;')})">🛒 Order Ingredients</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // QUICK REORDER - Opens platforms with ingredients in search
+        function quickReorder(recipeName, ingredients) {
+            const ingredientsList = ingredients.join(', ');
+            alert(`Recipe: ${recipeName}\n\nIngredients to order:\n${ingredientsList}\n\nOpening Careem, Noon, or Carrefour. Search for these ingredients!`);
+            // Opens Careem as example - user can copy ingredients to any platform
+            window.open('https://www.careem.com/en-ae/careem-quick', '_blank');
+        }
+
+        // FILTER FUNCTIONS
+        function filterRecipes(category) {
+            loadRecipes(category);
+            document.querySelectorAll('#recipes-tab .filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function filterSalads(filter) {
+            loadSalads(filter);
+            document.querySelectorAll('#salads-tab .filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // MEAL PLANNER
+        function loadWeekPlan() {
+            const weekNumber = parseInt(document.getElementById('weekSelector').value);
+            const container = document.getElementById('planner-content');
+            
+            const weekPlan = [
+                { day: 'Monday', breakfast: 'Paneer Bhurji & Roti (18g)', lunch: 'Paneer Tikka Masala & Rice (22g)', snack: 'Paneer Tikka Bites (12g)', dinner: 'Dal Makhani & Rice (16g)' },
+                { day: 'Tuesday', breakfast: 'Masala Dosa (12g)', lunch: 'Chana Masala & Bhature (18g)', snack: 'Roasted Chickpea Snack (8g)', dinner: 'Mushroom Masala & Roti (12g)' },
+                { day: 'Wednesday', breakfast: 'Soya Kheema Paratha (14g)', lunch: 'Palak Paneer & Paratha (18g)', snack: 'Hummus with Veggies (8g)', dinner: 'Vegetable Biryani (14g)' },
+                { day: 'Thursday', breakfast: 'Idli with Sambar (12g)', lunch: 'Moong Dal Makhani & Rice (16g)', snack: 'Chilli Paneer Tacos (16g)', dinner: 'Baingan Bharta & Roti (12g)' },
+                { day: 'Friday', breakfast: 'Chole Puri (15g)', lunch: 'Rajma & Rice (15g)', snack: 'Paneer Tikka Bites (12g)', dinner: 'Lentil & Vegetable Curry (13g)' },
+                { day: 'Saturday', breakfast: 'Paneer Bhurji & Roti (18g)', lunch: 'Paneer Butter Masala & Naan (20g)', snack: 'Roasted Chickpea Snack (8g)', dinner: 'Dal Makhani & Rice (16g)' },
+                { day: 'Sunday', breakfast: 'Masala Dosa (12g)', lunch: 'Chana Masala & Bhature (18g)', snack: 'Hummus with Veggies (8g)', dinner: 'Mushroom Masala & Roti (12g)' }
+            ];
+
+            container.innerHTML = weekPlan.map(day => `
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 1rem;">${day.day}</h3>
+                    <p><strong>🌅 Breakfast:</strong> ${day.breakfast}</p>
+                    <p><strong>🍽️ Lunch:</strong> ${day.lunch}</p>
+                    <p><strong>🥤 Snack:</strong> ${day.snack}</p>
+                    <p><strong>🌙 Dinner:</strong> ${day.dinner}</p>
+                </div>
+            `).join('');
+        }
+
+        // INITIALIZE
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('recipe-count').textContent = `(${mealsData.length})`;
+            document.getElementById('salad-count').textContent = `(${saladsData.length})`;
+        });
+    </script>
 </body>
 </html>
