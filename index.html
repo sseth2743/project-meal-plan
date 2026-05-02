@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>VegMeal Dubai - Meal Planner & Budget Tracker</title>
+    <meta name="theme-color" content="#1a5c3a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VegMeal Dubai">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🥘 VegMeal Dubai</h1>
+            <p class="tagline">Balanced • Protein-Driven • Budget-Friendly</p>
+            <div class="header-stats">
+                <span>💰 1,000 AED</span>
+                <span>📖 32 Meals</span>
+                <span>🥗 20 Salads</span>
+            </div>
+        </header>
+        <nav class="nav-tabs">
+            <button class="nav-btn active" onclick="showTab('home')">🏠 Home</button>
+            <button class="nav-btn" onclick="showTab('recipes')">🍳 Meals</button>
+            <button class="nav-btn" onclick="showTab('salads')">🥗 Salads</button>
+            <button class="nav-btn" onclick="showTab('budget')">💰 Budget</button>
+            <button class="nav-btn" onclick="showTab('planner')">📅 Planner</button>
+        </nav>
+        <main class="content">
+            <section id="home-tab" class="section active">
+                <h2>Welcome to VegMeal Dubai</h2>
+                <div class="welcome-grid">
+                    <div class="card">
+                        <h3>📊 Your Daily Goals</h3>
+                        <p><strong>Protein:</strong> 60-75g per day</p>
+                        <p><strong>Budget:</strong> 10-12 AED per day</p>
+                        <p><strong>Meals:</strong> 4 meals daily</p>
+                    </div>
+                    <div class="card">
+                        <h3>🎯 What's Inside</h3>
+                        <p>✓ 32 Complete Recipes</p>
+                        <p>✓ 20 Fresh Salads</p>
+                        <p>✓ 16 Weeks of Plans</p>
+                        <p>✓ Budget Tracker</p>
+                    </div>
+                    <div class="card">
+                        <h3>💡 Quick Stats</h3>
+                        <p><strong>Monthly:</strong> 1,000 AED</p>
+                        <p><strong>Per Meal:</strong> 4-5 AED</p>
+                        <p><strong>Protein:</strong> 60-75g/day</p>
+                    </div>
+                </div>
+            </section>
+            <section id="recipes-tab" class="section">
+                <h2>All Meals <span id="recipe-count">(32)</span></h2>
+                <p class="section-subtitle">Complete with ingredients and nutrition</p>
+                <div class="filter-group">
+                    <button class="filter-btn active" onclick="filterRecipes('all')">All</button>
+                    <button class="filter-btn" onclick="filterRecipes('breakfast')">Breakfast</button>
+                    <button class="filter-btn" onclick="filterRecipes('lunch')">Lunch</button>
+                    <button class="filter-btn" onclick="filterRecipes('snack')">Snacks</button>
+                </div>
+                <div class="recipe-grid" id="recipes-grid"></div>
+            </section>
+            <section id="salads-tab" class="section">
+                <h2>Fresh Salads <span id="salad-count">(20)</span></h2>
+                <p class="section-subtitle">Light and protein-packed</p>
+                <div class="filter-group">
+                    <button class="filter-btn active" onclick="filterSalads('all')">All</button>
+                    <button class="filter-btn" onclick="filterSalads('weight-loss')">Weight Loss</button>
+                    <button class="filter-btn" onclick="filterSalads('balanced')">Balanced</button>
+                    <button class="filter-btn" onclick="filterSalads('athletic')">Athletic</button>
+                </div>
+                <div class="recipe-grid" id="salads-grid"></div>
+            </section>
+            <section id="budget-tab" class="section">
+                <h2>Budget Tracker</h2>
+                <p class="section-subtitle">Track your monthly spending</p>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-value">1,000</div>
+                        <div class="stat-label">Monthly Budget (AED)</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">930</div>
+                        <div class="stat-label">Avg Spend (AED)</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">70</div>
+                        <div class="stat-label">Buffer (AED)</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">4.65</div>
+                        <div class="stat-label">Per Meal (AED)</div>
+                    </div>
+                </div>
+                <div class="progress-section">
+                    <p><strong>Spending Progress</strong></p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 93%;"></div>
+                    </div>
+                    <p>930 / 1,000 AED (93%)</p>
+                </div>
+                <div class="expense-form">
+                    <h3>Add New Expense</h3>
+                    <div class="form-group">
+                        <input type="date" id="expenseDate" placeholder="Date">
+                        <input type="text" id="expenseItem" placeholder="Item name">
+                        <input type="number" id="expenseAmount" placeholder="Amount (AED)">
+                        <button onclick="addExpense()" class="btn">Add</button>
+                    </div>
+                </div>
+                <div id="expenses-display"></div>
+            </section>
+            <section id="planner-tab" class="section">
+                <h2>16-Week Meal Planner</h2>
+                <p class="section-subtitle">Endless meal rotation</p>
+                <div class="planner-controls">
+                    <label>Week: <input type="number" id="weekSelector" min="1" max="16" value="1" onchange="loadWeekPlan()" style="width: 60px; padding: 8px;"></label>
+                </div>
+                <div id="planner-content"></div>
+            </section>
+        </main>
+        <div class="reorder-banner">
+            <h3>🔄 Quick Reorder</h3>
+            <div class="platform-grid">
+                <a href="https://www.careem.com/en-ae/careem-quick" target="_blank" class="platform-link">🚚 Careem Quick (15-30 min)</a>
+                <a href="https://www.noon.com/uae-en/groceries" target="_blank" class="platform-link">⚡ Noon Minutes (10-15 min)</a>
+                <a href="https://www.carrefour.ae/en" target="_blank" class="platform-link">🛒 Carrefour (Same day)</a>
+            </div>
+        </div>
+        <footer class="footer">
+            <p>Made with 💚 for vegetarian living in Dubai</p>
+            <p>32 meals • 20 salads • 1,000 AED/month • Works offline</p>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
